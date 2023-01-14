@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add @typescript-eslint/eslint-plugin-recommended-requiring-type-checking@latest
+  /usr/local/bin/node /usr/local/bin/yarn lint-staged
 
 PATH: 
-  /home/thierry/.volta/bin:/home/thierry/.volta/bin:/home/thierry/.volta/bin:/home/thierry/.volta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+  /usr/lib/git-core:/home/thierry/.volta/bin:/home/thierry/.volta/bin:/home/thierry/.volta/bin:/home/thierry/.volta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
 
 Yarn version: 
   1.22.19
@@ -14,17 +14,15 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@typescript-eslint%2feslint-plugin-recommended-requiring-type-checking: Not found
-      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66145:18)
-      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140890:22)
-      at Request.emit (node:events:513:28)
-      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141862:10)
-      at Request.emit (node:events:513:28)
-      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141784:12)
-      at Object.onceWrapper (node:events:627:28)
-      at IncomingMessage.emit (node:events:525:35)
-      at endReadableNT (node:internal/streams/readable:1358:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+  TypeError: Cannot convert object to primitive value
+      at Array.join (<anonymous>)
+      at ShellString.[format] (/usr/local/lib/node_modules/yarn/lib/cli.js:135834:80)
+      at ShellString.toString (/usr/local/lib/node_modules/yarn/lib/cli.js:135830:30)
+      at sh (/usr/local/lib/node_modules/yarn/lib/cli.js:135923:55)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:61585:52
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
@@ -35,7 +33,11 @@ npm manifest:
     "scripts": {
       "start:dev": "ts-node-dev --respawn --transpile-only src/index.ts",
       "prettier": "prettier --write src/**/*.ts",
-      "lint": "eslint src/**/*.ts"
+      "lint": "eslint src/**/*.ts",
+      "prepare" : "husky install",
+      "lint-staged" : {
+        "src/**/*.ts": "eslint --cache --fix && prettier --write"
+      }
     },
     "repository": {
       "type": "git",
@@ -59,6 +61,7 @@ npm manifest:
       "@typescript-eslint/eslint-plugin": "^5.48.1",
       "@typescript-eslint/parser": "^5.48.1",
       "eslint": "^8.31.0",
+      "husky": "^8.0.3",
       "prettier": "^2.8.3",
       "ts-node-dev": "^2.0.0",
       "typescript": "^4.9.4"
@@ -1004,6 +1007,11 @@ Lockfile:
       setprototypeof "1.2.0"
       statuses "2.0.1"
       toidentifier "1.0.1"
+  
+  husky@^8.0.3:
+    version "8.0.3"
+    resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.3.tgz#4936d7212e46d1dea28fef29bb3a108872cd9184"
+    integrity sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==
   
   iconv-lite@0.4.24:
     version "0.4.24"
