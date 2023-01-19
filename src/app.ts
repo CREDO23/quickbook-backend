@@ -4,6 +4,7 @@ import * as http from "http";
 import error from "http-errors";
 import cors from "cors";
 import IClientResponse from "./types/clientResponse";
+import connectDatabase from "./configs/database";
 
 export default class App {
   public express: express.Application;
@@ -12,6 +13,7 @@ export default class App {
   public async init() {
     this.express = express();
     this.server = http.createServer(this.express);
+    this.connectdb();
     this.middleares();
     this.routes();
     this.handleErrors();
@@ -32,6 +34,10 @@ export default class App {
 
   private routes(): void {
     this.express.get("/", this.baseRoute);
+  }
+
+  private connectdb(): void {
+    connectDatabase();
   }
 
   private handleErrors(): void {
