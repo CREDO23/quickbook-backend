@@ -20,7 +20,7 @@ const sequelize = new Sequelize(stringConnection as string, {
   logging: false,
 });
 
-const connectDatabase = () => {
+export const connectDatabase = () => {
   try {
     //test the connection by trying to authentificate
     sequelize.authenticate();
@@ -30,4 +30,4 @@ const connectDatabase = () => {
   }
 };
 
-export default connectDatabase;
+export default sequelize;

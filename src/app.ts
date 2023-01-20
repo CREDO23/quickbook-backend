@@ -4,7 +4,7 @@ import * as http from "http";
 import error from "http-errors";
 import cors from "cors";
 import IClientResponse from "./types/clientResponse";
-import connectDatabase from "./configs/database";
+import { connectDatabase } from "./configs/database";
 
 export default class App {
   public express: express.Application;
