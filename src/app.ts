@@ -5,6 +5,7 @@ import error from "http-errors";
 import cors from "cors";
 import IClientResponse from "./types/clientResponse";
 import { connectDatabase } from "./configs/database";
+import authroutes from "./routes/auth";
 
 export default class App {
   public express: express.Application;
@@ -34,6 +35,7 @@ export default class App {
 
   private routes(): void {
     this.express.get("/", this.baseRoute);
+    this.express.use("/api", authroutes);
   }
 
   private connectdb(): void {
