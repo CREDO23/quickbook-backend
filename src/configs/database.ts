@@ -10,7 +10,7 @@ const { NODE_ENV, DEV_POSTGRES_URI, PRODUCTION_POSTGRES_URI } = process.env;
 const stringConnection =
   NODE_ENV === "production"
     ? PRODUCTION_POSTGRES_URI
-    : NODE_ENV === "development"
+    : NODE_ENV === "developement"
     ? DEV_POSTGRES_URI
     : "";
 
@@ -24,6 +24,10 @@ export const connectDatabase = () => {
   try {
     //test the connection by trying to authentificate
     sequelize.authenticate();
+
+    //synchronize all models
+    sequelize.sync();
+
     console.log("Successfully connected to database");
   } catch (error) {
     console.log("Unable to connect to database ", error);
