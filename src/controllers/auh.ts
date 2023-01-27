@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import IClientResponse from "../types/clientResponse";
+import { signAccessToken } from "../helpers/jwt";
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,10 +19,15 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
       const savedUser = await newUser.save();
 
+      const accessToken = await signAccessToken({ username: savedUser.username, id: savedUser.id });
+
       if (savedUser) {
         res.json(<IClientResponse>{
           message: "Account created successfully",
-          data: savedUser,
+          data: {
+            user: savedUser,
+            accessToken,
+          },
           error: null,
           success: true,
         });

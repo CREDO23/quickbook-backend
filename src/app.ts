@@ -6,6 +6,7 @@ import cors from "cors";
 import IClientResponse from "./types/clientResponse";
 import { connectDatabase } from "./configs/database";
 import authroutes from "./routes/auth";
+import { verifyToken } from "./middlewares/authentication";
 
 export default class App {
   public express: express.Application;
@@ -27,6 +28,7 @@ export default class App {
   };
 
   private middleares(): void {
+    this.express.use(verifyToken());
     this.express.use(cors());
     this.express.use(morgan(":method :url :status :response-time ms"));
     this.express.use(express.json());
@@ -34,8 +36,8 @@ export default class App {
   }
 
   private routes(): void {
-    this.express.get("/", this.baseRoute);
-    this.express.use("/api", authroutes);
+    this.express.get("/api", this.baseRoute);
+    this.express.use("/api/auth", authroutes);
   }
 
   private connectdb(): void {
