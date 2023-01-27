@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Sequelize } from "sequelize";
-import pg from "pg";
-import dotenv from "dotenv";
+import * as pg from "pg";
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -11,6 +11,8 @@ const stringConnection =
   NODE_ENV === "production"
     ? PRODUCTION_POSTGRES_URI
     : NODE_ENV === "developement"
+    ? DEV_POSTGRES_URI
+    : NODE_ENV === "test"
     ? DEV_POSTGRES_URI
     : "";
 

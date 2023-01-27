@@ -2,7 +2,7 @@ import IUser from "../types/IUser";
 import { registerValidation } from "../validations/user";
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 import IClientResponse from "../types/clientResponse";
 import { signAccessToken } from "../helpers/jwt";
 
