@@ -13,3 +13,5 @@ app.init().then(() => {
     console.log(`Listening on ${PORT}`);
   });
 });
+
+export default app;

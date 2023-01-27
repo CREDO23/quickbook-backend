@@ -1,4 +1,4 @@
-import joi from "joi";
+import * as joi from "joi";
 
 export const registerValidation = joi.object({
   username: joi.string().required(),

@@ -1,8 +1,8 @@
-import express from "express";
-import morgan from "morgan";
+import * as express from "express";
+import * as morgan from "morgan";
 import * as http from "http";
-import error from "http-errors";
-import cors from "cors";
+import * as error from "http-errors";
+import * as cors from "cors";
 import IClientResponse from "./types/clientResponse";
 import { connectDatabase } from "./configs/database";
 import authroutes from "./routes/auth";
