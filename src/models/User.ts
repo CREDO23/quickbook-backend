@@ -2,7 +2,10 @@ import sequelize from "../configs/database";
 import { DataTypes, Model } from "sequelize";
 import IUser from "../types/IUser";
 
-export default class User extends Model<IUser> {}
+export default class User extends Model<IUser> {
+  username: string;
+  id: string;
+}
 
 User.init(
   {
