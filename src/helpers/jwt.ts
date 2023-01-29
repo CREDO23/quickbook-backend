@@ -1,11 +1,12 @@
 import * as dotenv from "dotenv";
 import * as jwt from "jsonwebtoken";
+import { DataTypes } from "sequelize";
 
 dotenv.config();
 
 interface ICredentials {
   username: string;
-  id: string;
+  id: typeof DataTypes.UUID;
 }
 
 export const signAccessToken = ({ username, id }: ICredentials): Promise<string> => {

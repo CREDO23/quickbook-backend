@@ -13,3 +13,8 @@ export const registerValidation = joi.object({
   avatar: joi.string(),
   isOnline: joi.boolean().default(false),
 });
+
+export const loginValidation = joi.object({
+  email: joi.string().required(),
+  password: joi.string().required(),
+});

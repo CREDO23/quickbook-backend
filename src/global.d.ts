@@ -4,5 +4,3 @@ interface IClientResponse {
   error: unknown;
   success: boolean;
 }
-
-export default IClientResponse;

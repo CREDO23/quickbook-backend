@@ -3,7 +3,6 @@ import * as morgan from "morgan";
 import * as http from "http";
 import * as error from "http-errors";
 import * as cors from "cors";
-import IClientResponse from "./types/clientResponse";
 import { connectDatabase } from "./configs/database";
 import authroutes from "./routes/auth";
 import { verifyToken } from "./middlewares/authentication";
