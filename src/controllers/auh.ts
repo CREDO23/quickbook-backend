@@ -1,21 +1,20 @@
-import IUser from "../types/IUser";
-import { registerValidation } from "../validations/user";
+import { loginValidation, registerValidation } from "../validations/user";
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 import * as bcrypt from "bcrypt";
-import IClientResponse from "../types/clientResponse";
 import { signAccessToken } from "../helpers/jwt";
+import * as error from "http-errors";
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result: IUser = await registerValidation.validateAsync(req.body);
+    const result: User = await registerValidation.validateAsync(req.body);
 
     if (result) {
       const salt = await bcrypt.genSalt(10);
 
       const hash = await bcrypt.hash(result.password, salt);
 
-      const newUser = new User({ ...result, password: hash });
+      const newUser = User.build({ ...result, password: hash });
 
       const savedUser = await newUser.save();
 
@@ -35,6 +34,40 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     }
   } catch (error) {
     if (error.isJoi) error.status = 422;
+    next(error);
+  }
+};
+
+export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const result: User = await loginValidation.validateAsync(req.body);
+
+    if (result) {
+      const user = await User.findOne({ where: { email: result.email } });
+
+      if (user) {
+        const isMatch = await bcrypt.compare(result.password, user.password);
+
+        if (isMatch) {
+          const accessToken = await signAccessToken({ username: result.username, id: result.id });
+
+          res.json(<IClientResponse>{
+            message: `Logged in as ${result.email}`,
+            data: {
+              user,
+              accessToken,
+            },
+            error: null,
+            success: true,
+          });
+        } else {
+          throw error.NotFound("Incorect Email or password");
+        }
+      } else {
+        throw error.NotFound("Incorect Email or password");
+      }
+    }
+  } catch (error) {
     next(error);
   }
 };

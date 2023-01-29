@@ -3,8 +3,11 @@ import { DataTypes, Model } from "sequelize";
 import IUser from "../types/IUser";
 
 export default class User extends Model<IUser> {
-  username: string;
-  id: string;
+  declare username: string;
+  declare id: string;
+  declare email: string;
+  declare password: string;
+  declare firstname: string;
 }
 
 User.init(
