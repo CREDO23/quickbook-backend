@@ -4,32 +4,53 @@ import User from "../models/User";
 import * as bcrypt from "bcrypt";
 import { signAccessToken } from "../helpers/jwt";
 import * as error from "http-errors";
+import { Op } from "sequelize";
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result: User = await registerValidation.validateAsync(req.body);
 
     if (result) {
-      const salt = await bcrypt.genSalt(10);
+      const isExist = User.findOne({
+        where: {
+          [Op.or]: [
+            {
+              email: result.email,
+            },
+            {
+              username: result.username,
+            },
+          ],
+        },
+      });
 
-      const hash = await bcrypt.hash(result.password, salt);
+      if (isExist) {
+        throw error.Conflict("User already exists");
+      } else {
+        const salt = await bcrypt.genSalt(10);
 
-      const newUser = User.build({ ...result, password: hash });
+        const hash = await bcrypt.hash(result.password, salt);
 
-      const savedUser = await newUser.save();
+        const newUser = User.build({ ...result, password: hash });
 
-      const accessToken = await signAccessToken({ username: savedUser.username, id: savedUser.id });
+        const savedUser = await newUser.save();
 
-      if (savedUser) {
-        res.json(<IClientResponse>{
-          message: "Account created successfully",
-          data: {
-            user: savedUser,
-            accessToken,
-          },
-          error: null,
-          success: true,
+        const accessToken = await signAccessToken({
+          username: savedUser.username,
+          id: savedUser.id,
         });
+
+        if (savedUser) {
+          res.json(<IClientResponse>{
+            message: "Account created successfully",
+            data: {
+              user: savedUser,
+              accessToken,
+            },
+            error: null,
+            success: true,
+          });
+        }
       }
     }
   } catch (error) {
@@ -49,7 +70,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
         const isMatch = await bcrypt.compare(result.password, user.password);
 
         if (isMatch) {
-          const accessToken = await signAccessToken({ username: result.username, id: result.id });
+          const accessToken = await signAccessToken({ username: user.username, id: user.id });
 
           res.json(<IClientResponse>{
             message: `Logged in as ${result.email}`,
