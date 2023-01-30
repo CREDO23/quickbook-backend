@@ -18,3 +18,16 @@ export const loginValidation = joi.object({
   email: joi.string().required(),
   password: joi.string().required(),
 });
+
+export const userUpdateValidation = joi.object({
+  email: joi.string().email(),
+  password: joi.string(),
+  proffession: joi.string(),
+  phoneNumber: joi.string(),
+  firstname: joi.string(),
+  lastname: joi.string(),
+  description: joi.string(),
+  gender: joi.string(),
+  avatar: joi.string(),
+  isOnline: joi.boolean(),
+});

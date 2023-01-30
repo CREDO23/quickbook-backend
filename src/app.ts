@@ -5,6 +5,7 @@ import * as error from "http-errors";
 import * as cors from "cors";
 import { connectDatabase } from "./configs/database";
 import authroutes from "./routes/auth";
+import userRoutes from "./routes/user";
 import { verifyToken } from "./middlewares/authentication";
 
 export default class App {
@@ -37,6 +38,7 @@ export default class App {
   private routes(): void {
     this.express.get("/api", this.baseRoute);
     this.express.use("/api/auth", authroutes);
+    this.express.use("/api/users", userRoutes);
   }
 
   private connectdb(): void {
