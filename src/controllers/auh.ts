@@ -11,7 +11,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     const result: User = await registerValidation.validateAsync(req.body);
 
     if (result) {
-      const isExist = User.findOne({
+      const isExist = await User.findOne({
         where: {
           [Op.or]: [
             {
