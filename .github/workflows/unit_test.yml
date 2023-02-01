@@ -14,6 +14,10 @@ jobs:
 
       - name: Setup Database
         uses: harmon758/postgresql-action@v1
+        with:
+          postgresql db: "spes"
+          postgresql user: "user23"
+          postgresql password: "user23"
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -21,4 +25,5 @@ jobs:
           node-version: 16
 
       - run: yarn
-
+      - run: yarn install
+      - run: yarn test
