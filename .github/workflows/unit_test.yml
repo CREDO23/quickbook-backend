@@ -6,6 +6,10 @@ on:
   push:
     branches: [develop]
 
+env:
+  TEST_POSTGRES_URI: postgres://user23:user23@localhost:5432/spes
+  SECRET_KEY_ACCESS_TOKEN: KDSLLjuhi4243452oinkKMkgbnopok342324536khjnmCTDYCVJBvucdygjvh65343123425621jhcvKGIUGLNKHG
+
 jobs:
   Unit-test:
     runs-on: ubuntu-latest
@@ -25,5 +29,5 @@ jobs:
           node-version: 16
 
       - run: yarn
-      - run: yarn install
+      - run: yarn start:dev
       - run: yarn test
