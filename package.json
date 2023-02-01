@@ -9,7 +9,7 @@
     "lint": "eslint src/**/*.ts",
     "prepare": "husky install",
     "lint-staged": "yarn lint && yarn prettier",
-    "test": "jest"
+    "test": "yarn start:dev && jest"
   },
   "repository": {
     "type": "git",
