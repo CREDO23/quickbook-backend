@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const { NODE_ENV, DEV_POSTGRES_URI, PRODUCTION_POSTGRES_URI } = process.env;
+const { NODE_ENV, DEV_POSTGRES_URI, PRODUCTION_POSTGRES_URI, TEST_POSTGRES_URI } = process.env;
 
 const stringConnection =
   NODE_ENV === "production"
@@ -13,7 +13,7 @@ const stringConnection =
     : NODE_ENV === "developement"
     ? DEV_POSTGRES_URI
     : NODE_ENV === "test"
-    ? DEV_POSTGRES_URI
+    ? TEST_POSTGRES_URI
     : "";
 
 const sequelize = new Sequelize(stringConnection as string, {
