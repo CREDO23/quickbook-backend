@@ -5,9 +5,9 @@ import app from "../src";
 jest.setTimeout(60000);
 
 const user = {
-  username: "username",
+  username: "username1",
   password: "password",
-  email: "email@gmail.com",
+  email: "email1@gmail.com",
   phoneNumber: "12345678",
 };
 
