@@ -7,18 +7,19 @@ on:
     branches: [develop]
 
 jobs:
-  Unit-test:
+  Setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Database
-        uses: harmon758/postgresql-action@v1
-
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
-
       - run: yarn
 
+      - name: Test
+        run: yarn test
+        env:
+          TEST_POSTGRES_URI: ${{secrets.TEST_POSTGRES_URI}}
+          SECRET_KEY_ACCESS_TOKEN: ${{secrets.SECRET_KEY_ACCESS_TOKEN}}
