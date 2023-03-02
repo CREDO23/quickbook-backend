@@ -7,7 +7,7 @@ jest.setTimeout(60000);
 const user = {
   username: "username1",
   password: "password",
-  email: "email1@gmail.com",
+  email: "samuelmbabhazi@gmail.com",
 };
 
 let id: typeof DataTypes.UUID;
