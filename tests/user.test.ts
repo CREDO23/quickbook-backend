@@ -8,7 +8,6 @@ const user = {
   username: "username1",
   password: "password",
   email: "email1@gmail.com",
-  phoneNumber: "12345678",
 };
 
 let id: typeof DataTypes.UUID;
