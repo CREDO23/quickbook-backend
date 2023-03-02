@@ -61,7 +61,6 @@ User.init(
     },
     phoneNumber: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
   },
   {

@@ -5,6 +5,7 @@ import * as bcrypt from "bcrypt";
 import { signAccessToken } from "../helpers/jwt";
 import * as error from "http-errors";
 import { Op } from "sequelize";
+import sendWelcomeMail from "../helpers/nodemailer/welcome";
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -41,15 +42,19 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         });
 
         if (savedUser) {
-          res.json(<IClientResponse>{
-            message: "Account created successfully",
-            data: {
-              user: savedUser,
-              accessToken,
-            },
-            error: null,
-            success: true,
-          });
+          const emailSend = await sendWelcomeMail(savedUser, "WELCOME");
+
+          if (emailSend) {
+            res.json(<IClientResponse>{
+              message: "Account created successfully",
+              data: {
+                user: savedUser,
+                accessToken,
+              },
+              error: null,
+              success: true,
+            });
+          }
         }
       }
     }
