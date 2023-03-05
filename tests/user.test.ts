@@ -1,31 +1,41 @@
 import { DataTypes } from "sequelize";
 import * as request from "supertest";
-import app from "../src";
+import App from "../src/app";
 
 jest.setTimeout(60000);
 
 const user = {
-  username: "username1",
+  username: "username123",
   password: "password",
-  email: "samuelmbabhazi@gmail.com",
+  email: "bakerathierry@gmail.com",
 };
 
+
+const app = new App()
 let id: typeof DataTypes.UUID;
 let token;
 
+beforeAll(() => {
+  app.init()
+})
+
 describe("REGISTER", () => {
+
+ 
+
   test("Should create an account and return an accessToken to the user", async () => {
+
     const response = await request(app.server).post("/api/auth/register").send(user);
 
     id = response.body.data.user.id;
     token = response.body.data.accessToken;
-
     expect(response.body.message).toBe("Account created successfully");
     expect(response.body.data.accessToken).toBeDefined();
   });
 });
 
 describe("LOGIN", () => {
+
   test("Should log in his account and return an accessToken", async () => {
     const response = await request(app.server).post("/api/auth/login").send({
       password: user.password,
