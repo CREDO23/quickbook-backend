@@ -16,7 +16,7 @@ const stringConnection =
     ? TEST_POSTGRES_URI
     : "";
 
-const sequelize = new Sequelize(stringConnection as string, {
+export const sequelize = new Sequelize(stringConnection as string, {
   dialect: "postgres",
   dialectModule: pg,
   logging: false,
@@ -28,7 +28,7 @@ export const connectDatabase = () => {
     sequelize.authenticate();
 
     //synchronize all models
-    sequelize.sync();
+    sequelize.sync({alter : false});
 
     console.log("Successfully connected to database");
   } catch (error) {

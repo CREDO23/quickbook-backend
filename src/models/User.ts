@@ -50,16 +50,13 @@ User.init(
     proffession: {
       type: DataTypes.STRING,
     },
-    description: {
-      type: DataTypes.STRING,
-    },
     gender: {
       type: DataTypes.STRING,
     },
-    isOnline: {
+    is_online: {
       type: DataTypes.BOOLEAN,
     },
-    phoneNumber: {
+    phone_number: {
       type: DataTypes.STRING,
     },
   },
@@ -67,5 +64,7 @@ User.init(
     modelName: "users",
     sequelize,
     timestamps: true,
+    createdAt : 'created_at',
+    updatedAt : 'updated_at'
   },
 );

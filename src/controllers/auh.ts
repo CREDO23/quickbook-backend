@@ -90,7 +90,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
           throw error.NotFound("Incorect Email or password");
         }
       } else {
-        throw error.NotFound("Incorect Email or password");
+        throw error.NotFound("Incorect Email or password sss");
       }
     }
   } catch (error) {

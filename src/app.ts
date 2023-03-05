@@ -9,12 +9,10 @@ import userRoutes from "./routes/user";
 import { verifyToken } from "./middlewares/authentication";
 
 export default class App {
-  public express: express.Application;
-  public server: http.Server;
+  public express: express.Application = express();
+  public server: http.Server = http.createServer(this.express);
 
   public async init() {
-    this.express = express();
-    this.server = http.createServer(this.express);
     this.connectdb();
     this.middleares();
     this.routes();
