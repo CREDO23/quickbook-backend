@@ -28,7 +28,7 @@ export const connectDatabase = () => {
     sequelize.authenticate();
 
     //synchronize all models
-    sequelize.sync({alter : false});
+    sequelize.sync({ alter: false });
 
     console.log("Successfully connected to database");
   } catch (error) {
