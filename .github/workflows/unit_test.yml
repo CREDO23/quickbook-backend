@@ -19,5 +19,8 @@ jobs:
       - run: yarn
 
       - name: Test
-        run: docker-compose up --build --renew-anon-volumes --abort-on-container-exit
+        env:
+          NODE_ENV : "test"
+        run: yarn test
+      
        

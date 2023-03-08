@@ -22,6 +22,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DEV_POSTGRES_URI=postgres://postgres:postgres@db:5432/spes
+      - TEST_POSTGRES_URI=postgres://postgres:postgres@db:5432/spes
     command: yarn start:dev
     expose:
       - 3000
@@ -30,7 +31,7 @@ services:
 
   my-test-app:
     image: my-app
-    command: dockerize -wait tcp://db:5432 -wait tcp://my-app:5000  -timeout 20s bash -c "yarn test"
+    command: dockerize -wait tcp://db:5432 -wait tcp://my-app:5000  -timeout 20s bash -c "yarn jest"
     environment:
       - DB_HOST=db
       - DB_USER=postgres
