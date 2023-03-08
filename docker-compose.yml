@@ -1,12 +1,43 @@
-version: 'latest'
+version: '3.1'
 services:
   db:
     image: postgres
     restart: always
-    ports:
-      - 5433:5433
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./scripts/db:/docker-entrypoint-initdb.d
+    expose:
+      - 5432
+    
+
+
+  my-app:
+    image: my-app
+    build: .
+    environment:
+      - PORT=5000
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DEV_POSTGRES_URI=postgres://postgres:postgres@db:5432/spes
+    command: yarn start:dev
+    expose:
+      - 3000
+    depends_on:
+      - db
+
+  my-test-app:
+    image: my-app
+    command: dockerize -wait tcp://db:5432 -wait tcp://my-app:5000  -timeout 20s bash -c "yarn test"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - APP_TEST_URL=http://my-app:5000
+      - TEST_POSTGRES_URI=postgres://postgres:postgres@db:5432/spes
+    depends_on:
+      - db
+      - my-app
+    
