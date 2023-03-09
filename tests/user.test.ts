@@ -4,6 +4,8 @@ import App from "../src/app";
 
 jest.setTimeout(60000);
 
+const APP = process.env.APP_TEST_URL
+
 const user = {
   username: "username123",
   password: "password",
@@ -25,7 +27,7 @@ describe("REGISTER", () => {
 
   test("Should create an account and return an accessToken to the user", async () => {
 
-    const response = await request(app.server).post("/api/auth/register").send(user);
+    const response = await request(APP).post("/api/auth/register").send(user);
 
     id = response.body.data.user.id;
     token = response.body.data.accessToken;

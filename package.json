@@ -9,7 +9,8 @@
     "lint": "eslint src/**/*.ts",
     "prepare": "husky install",
     "lint-staged": "yarn lint && yarn prettier",
-    "test": "jest"
+    "test" : "docker-compose up --build --renew-anon-volumes --abort-on-container-exit && docker-compose down",
+    "jest": "jest"
   },
   "repository": {
     "type": "git",
