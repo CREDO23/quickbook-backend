@@ -18,6 +18,9 @@ services:
     build: .
     environment:
       - NODE_ENV=test
+      - NODEMAILER_PASSWORD=npoksiviofemkysh
+      - NODEMAILER_EMAIL=thierrybakera12@gmail.com
+      - SECRET_KEY_ACCESS_TOKEN=dssjffffffffffffffffffffffwi456hjmaskkkkzmascjnvdisouaksJ
       - PORT=5000
       - DB_HOST=db
       - DB_USER=postgres
