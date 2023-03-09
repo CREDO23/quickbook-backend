@@ -37,6 +37,10 @@ services:
     image: my-app
     command: dockerize -wait tcp://db:5432 -wait tcp://my-app:5000  -timeout 20s bash -c "yarn jest"
     environment:
+      - NODE_ENV=test
+      - NODEMAILER_PASSWORD=npoksiviofemkysh
+      - NODEMAILER_EMAIL=thierrybakera12@gmail.com
+      - SECRET_KEY_ACCESS_TOKEN=dssjffffffffffffffffffffffwi456hjmaskkkkzmascjnvdisouaksJ
       - DB_HOST=db
       - DB_USER=postgres
       - DB_PASSWORD=postgres
