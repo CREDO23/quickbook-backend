@@ -21,7 +21,7 @@ jobs:
       - name: Test
         env:
           NODE_ENV : "test"
-          ECRET_KEY_ACCESS_TOKEN: ${{secrets.SECRET_KEY_ACCESS_TOKEN}}
+          SECRET_KEY_ACCESS_TOKEN: ${{secrets.SECRET_KEY_ACCESS_TOKEN}}
           NODEMAILER_PASSWORD: ${{secrets.NODEMAILER_PASSWORD}}
           NODEMAILER_EMAIL: ${{secrets.NODEMAILER_EMAIL}}
         run: yarn test
