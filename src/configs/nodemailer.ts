@@ -1,4 +1,6 @@
 import * as nodemailer from "nodemailer";
+import * as hb from 'nodemailer-express-handlebars'
+import hbOptions from "../helpers/nodemailer/hbOptions";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -9,5 +11,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.NODEMAILER_PASSWORD,
   },
 });
+
+transporter.use('compile' , hb(hbOptions))
 
 export default transporter;

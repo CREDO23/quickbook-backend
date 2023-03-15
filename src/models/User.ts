@@ -13,7 +13,7 @@ export default class User extends Model {
   declare description: string;
   declare gender: string;
   declare avatar?: string;
-  declare isOnline?: boolean;
+  declare is_online?: boolean;
 }
 
 User.init(
