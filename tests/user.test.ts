@@ -4,30 +4,23 @@ import App from "../src/app";
 
 jest.setTimeout(60000);
 
-const APP = process.env.APP_TEST_URL
-
 const user = {
   username: "username123",
   password: "password",
   email: "bakerathierry@gmail.com",
 };
 
-
-const app = new App()
+const app = new App();
 let id: typeof DataTypes.UUID;
 let token;
 
 beforeAll(() => {
-  app.init()
-})
+  app.init();
+});
 
 describe("REGISTER", () => {
-
- 
-
   test("Should create an account and return an accessToken to the user", async () => {
-
-    const response = await request(APP).post("/api/auth/register").send(user);
+    const response = await request(app.server).post("/api/auth/register").send(user);
 
     id = response.body.data.user.id;
     token = response.body.data.accessToken;
@@ -37,7 +30,6 @@ describe("REGISTER", () => {
 });
 
 describe("LOGIN", () => {
-
   test("Should log in his account and return an accessToken", async () => {
     const response = await request(app.server).post("/api/auth/login").send({
       password: user.password,
@@ -81,6 +73,17 @@ describe("USER", () => {
         .auth(`${token}`, { type: "bearer" });
 
       expect(response.body.message).toBe("User deleted successfully");
+    });
+  });
+
+  describe("Get", () => {
+    test("Should not be able to get a deleted user", async () => {
+      const response = await request(app.server)
+        .get(`/api/users/${id}`)
+        .auth(`${token}`, { type: "bearer" });
+
+      expect(response.statusCode).toBe(404);
+      expect(response.body.message).toBe("User not found");
     });
   });
 });
