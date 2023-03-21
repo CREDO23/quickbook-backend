@@ -10,7 +10,6 @@ interface ICredentials {
 }
 
 export const signResetPasswordToken = ({ username, id }: ICredentials): Promise<string> => {
-
   return new Promise<string>((resolve, reject) => {
     jwt.sign(
       { username, id },

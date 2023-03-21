@@ -24,23 +24,21 @@ export const forgotPassword = async (
       const emailSent = await sendResetPasswordMail(user, link, "Reset Password");
 
       if (emailSent) {
-        
         res.json(<IClientResponse>{
           message: "We have sent a recovery password link to your email address , check your inbox",
           data: emailSent,
           success: true,
           error: null,
         });
-      }
-      else {
+      } else {
         res.json(<IClientResponse>{
-            message: "We have sent a recovery password link to your email address , check your inbox",
-            data: null,
-            success: true,
-            error: null,
-          });
+          message: "We have sent a recovery password link to your email address , check your inbox",
+          data: null,
+          success: true,
+          error: null,
+        });
       }
-    } 
+    }
   } catch (error) {
     next(error);
   }

@@ -8,5 +8,5 @@ export const verifyToken = () =>
     secret: process.env.SECRET_KEY_ACCESS_TOKEN as string,
     algorithms: ["HS256"],
   }).unless({
-    path: ["/api/auth/register", "/api/auth/login", "/api" , "/api/password/forgot"],
+    path: ["/api/auth/register", "/api/auth/login", "/api", "/api/password/forgot"],
   });
