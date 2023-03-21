@@ -42,9 +42,9 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         });
 
         if (savedUser) {
-          const emailSend = await sendWelcomeMail(savedUser, "WELCOME");
+          const emailSent = await sendWelcomeMail(savedUser, "WELCOME");
 
-          if (emailSend) {
+          if (emailSent) {
             res.json(<IClientResponse>{
               message: "Account created successfully",
               data: {

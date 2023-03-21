@@ -87,3 +87,16 @@ describe("USER", () => {
     });
   });
 });
+
+describe('PASSWORD' ,  () => {
+  describe('Forgot Password',  () => {
+    test("It should send an email to the user if the user is found in the database", async () => {
+        const response = await request(app.server).post('/api/password/forgot').send({username: user.username})
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe("We have sent a recovery password link to your email address , check your inbox");
+        expect(response.body.data).toBeDefined()
+        expect(response.body.data.accepted).toEqual(['bakerathierry@gmail.com'])
+    })
+  })
+})

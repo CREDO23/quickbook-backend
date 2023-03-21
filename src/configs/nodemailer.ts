@@ -1,5 +1,5 @@
 import * as nodemailer from "nodemailer";
-import * as hb from 'nodemailer-express-handlebars'
+import * as hb from "nodemailer-express-handlebars";
 import hbOptions from "../helpers/nodemailer/hbOptions";
 
 const transporter = nodemailer.createTransport({
@@ -12,6 +12,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.use('compile' , hb(hbOptions))
+transporter.use("compile", hb(hbOptions));
 
 export default transporter;
