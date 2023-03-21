@@ -3,7 +3,7 @@ import * as nodemailer from "nodemailer";
 import type { TemplateOptions } from "nodemailer-express-handlebars";
 import User from "../../models/User";
 
-const sendforgotPasswordMail = (
+const sendResetPasswordEmail = (
   receiver : User,
   link: string,
   subject: string,
@@ -13,9 +13,10 @@ const sendforgotPasswordMail = (
       from: process.env.NODEMAILER_EMAIL,
       subject,
       to: receiver.email,
-      template: "forgotPassword",
+      template: "resetPassword",
       context: {
         link,
+        receiver : receiver.username
       },
     };
 
@@ -29,4 +30,4 @@ const sendforgotPasswordMail = (
   });
 };
 
-export default sendforgotPasswordMail;
+export default sendResetPasswordEmail;
