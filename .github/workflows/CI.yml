@@ -7,8 +7,9 @@ on:
     branches: [develop]
 
 jobs:
-  Setup:
+  Build:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v3
 
@@ -16,9 +17,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: yarn
+      - run: yarn install
+      - run: yarn build
 
-      - name: Test
+  Test :
+    needs: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
         env:
           NODE_ENV : "test"
           SECRET_KEY_ACCESS_TOKEN: ${{secrets.SECRET_KEY_ACCESS_TOKEN}}
@@ -26,6 +36,5 @@ jobs:
           NODEMAILER_EMAIL: ${{secrets.NODEMAILER_EMAIL}}
           SECRET_KEY_PASSWORD_TOKEN: ${{secrets.SECRET_KEY_PASSWORD_TOKEN}}
           FRONTEND_URL: ${{secrets.FRONTEND_URL}}
+        run: yarn install
         run: yarn test
-      
-       
