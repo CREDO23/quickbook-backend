@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start": "node dist/index.js",
     "prettier": "prettier --write src/**/*.{ts,js,md}",
     "lint": "eslint src/**/*.ts",
     "prepare": "husky install",
     "lint-staged": "yarn lint && yarn prettier",
     "test": "docker-compose up --build --renew-anon-volumes --abort-on-container-exit && docker-compose down",
-    "jest": "jest"
+    "jest": "jest",
+    "build": "yarn install && tsc"
   },
   "repository": {
     "type": "git",
