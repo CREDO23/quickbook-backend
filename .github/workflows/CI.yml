@@ -19,23 +19,23 @@ jobs:
           node-version: 16
       - run: yarn install
       - run: yarn build
-      - run: echo "access-$SECRET_KEY_ACCESS_TOKEN  password-$SECRET_KEY_PASSWORD_TOKEN mailpass-$NODEMAILER_PASSWORD mail-$NODEMAILER_EMAIL"
-
+  
   Test :
     needs: Build
     runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        env:
+    env:
           NODE_ENV : "test"
           SECRET_KEY_ACCESS_TOKEN: ${{secrets.SECRET_KEY_ACCESS_TOKEN}}
           NODEMAILER_PASSWORD: ${{secrets.NODEMAILER_PASSWORD}}
           NODEMAILER_EMAIL: ${{secrets.NODEMAILER_EMAIL}}
           SECRET_KEY_PASSWORD_TOKEN: ${{secrets.SECRET_KEY_PASSWORD_TOKEN}}
           FRONTEND_URL: ${{secrets.FRONTEND_URL}}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        
       - run: yarn install
       - run: yarn test
