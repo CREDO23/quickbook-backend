@@ -17,10 +17,14 @@ jobs :
         uses: actions/setup-node@v3
         with:
           node-version: 16
-        run: yarn install
-        run: yarn build
+      - run: yarn install
+      - run: yarn build
 
-    Deploy:
-      runs-on: ubuntu-latest
-      needs: Build
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: Build
 
+    steps:
+      - uses: johnbeynon/render-deploy-action
+          with: 
+            api-key: ${{secrets.RENDER_API_KEY}}
