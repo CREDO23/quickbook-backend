@@ -5,7 +5,7 @@ import sendResetPasswordMail from "../helpers/nodemailer/forgotPassword";
 import * as dotenv from "dotenv";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
-import * as error from 'http-errors'
+import * as error from "http-errors";
 import sendResetPasswordEmail from "../helpers/nodemailer/resetPassword";
 
 dotenv.config();
@@ -61,7 +61,7 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     if (decode) {
       const user = await User.findByPk(decode.id);
 
-      if(user){
+      if (user) {
         user.update({
           ...user,
           password: hash,
@@ -69,9 +69,9 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 
         const link = `${process.env.FRONTEND_URL}/login`;
 
-        const emailSent =  await sendResetPasswordEmail(user , link , 'Password update')
+        const emailSent = await sendResetPasswordEmail(user, link, "Password update");
 
-        if (emailSent){
+        if (emailSent) {
           res.json(<IClientResponse>{
             message: "Password updated successfully",
             data: user,
@@ -79,8 +79,8 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
             success: true,
           });
         }
-      }else{
-        throw new error.NotImplemented('Could not reset the password , try again later')
+      } else {
+        throw new error.NotImplemented("Could not reset the password , try again later");
       }
     }
   } catch (error) {

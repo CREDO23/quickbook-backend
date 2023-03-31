@@ -4,7 +4,7 @@ import type { TemplateOptions } from "nodemailer-express-handlebars";
 import User from "../../models/User";
 
 const sendforgotPasswordMail = (
-  receiver : User,
+  receiver: User,
   link: string,
   subject: string,
 ): Promise<string | boolean> => {

@@ -36,5 +36,5 @@ jobs:
           NODEMAILER_EMAIL: ${{secrets.NODEMAILER_EMAIL}}
           SECRET_KEY_PASSWORD_TOKEN: ${{secrets.SECRET_KEY_PASSWORD_TOKEN}}
           FRONTEND_URL: ${{secrets.FRONTEND_URL}}
-        run: yarn install
-        run: yarn test
+      - run: yarn install
+      - run: yarn test
