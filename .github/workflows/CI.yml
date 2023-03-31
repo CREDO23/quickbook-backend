@@ -19,6 +19,7 @@ jobs:
           node-version: 16
       - run: yarn install
       - run: yarn build
+      - run: echo "access-$SECRET_KEY_ACCESS_TOKEN  password-$SECRET_KEY_PASSWORD_TOKEN mailpass-$NODEMAILER_PASSWORD mail-$NODEMAILER_EMAIL"
 
   Test :
     needs: Build
