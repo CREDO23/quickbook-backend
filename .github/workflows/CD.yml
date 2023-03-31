@@ -23,8 +23,10 @@ jobs :
   Deploy:
     runs-on: ubuntu-latest
     needs: Build
+    name: Deploy to render
 
     steps:
-      - uses: johnbeynon/render-deploy-action
+      - name: TRigger Deployment
+        uses: johnbeynon/render-deploy-action
         with: 
           api-key: ${{secrets.RENDER_API_KEY}}
