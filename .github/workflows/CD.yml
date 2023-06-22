@@ -1,14 +1,17 @@
-name: Trigger Render Deployment
+name: My Deploy
+
 on:
   push:
-    branches: ['main','develop']
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
-  deploy:
-    name: Deploy to Render
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger deployment
-        uses: sws2apps/render-deployment@main
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          serviceId: ${{ secrets.RENDER_SERVICE_ID}}
-          apiKey: ${{ secrets.RENDER_API_KEY}}
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
