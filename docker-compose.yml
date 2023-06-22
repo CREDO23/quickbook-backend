@@ -13,6 +13,7 @@ services:
     
   my-test-app:
     image: my-app
+    build: .
     command: dockerize -wait tcp://db:5432 -timeout 20s bash -c "yarn jest --coverage"
     environment:
       - NODE_ENV=test
